@@ -1,109 +1,159 @@
-/* Navigation */
-const link = document.querySelectorAll("nav li");
-[...link].forEach(navigate);
+const terminal = document.querySelector('.terminal-input');
+const infoMessage = document.querySelector('.info-msg');
 
-function navigate(link, idx) {
-  link.addEventListener("click", () => {
-    switch (idx % 4) {
-      case 0:
-        document.querySelector("body").style.top = "0";
-        break;
-      case 1:
-        document.querySelector("body").style.top = "-200%";
-        break;
-      case 2:
-        document.querySelector("body").style.top = "-400%";
-        break;
-      case 3:
-        document.querySelector("body").style.top = "-700%";
-        break;
+let commandHistory = [];
+let currentCommandIndex = 0;
+const parser = math.parser();
+terminal.addEventListener('keyup', (e) => {
+  if (e.keyCode === 13) {
+    parseCommand(e.target.value.toLowerCase().trim());
+  }
+  if (e.keyCode === 38) {
+    if (currentCommandIndex > 0) {
+      terminal.value = commandHistory[--currentCommandIndex];
     }
-  });
-}
-/* ********* */
-/* Scrolling */
+  }
+  if (e.keyCode === 40) {
+    if (currentCommandIndex < commandHistory.length - 1) {
+      terminal.value = commandHistory[++currentCommandIndex];
+    }
+    if (currentCommandIndex === commandHistory.length) {
+      terminal.value = '';
+    }
+    if (currentCommandIndex === commandHistory.length - 1) {
+      currentCommandIndex++;
+    }
+  }
+});
 
-body = document.querySelector("body");
-body.style.transition = "top, 2s";
-body.style.top = "0";
+function parseCommand(input) {
+  commandHistory.push(input);
+  currentCommandIndex = commandHistory.length;
 
-function scrollPage(amount, pos) {
-  body.style.top = pos + amount + "%";
-}
+  try {
+    let x = parser.evaluate(input);
+    infoMessage.textContent = math.format(x, { precision: 14 });
+    terminal.value = '';
+  } catch (e) {
+    const [command, ...params] = input.split(' ');
 
-let count = 0;
-
-body.onwheel = event => {
-  let pos = Number.parseInt(body.style.top);
-  console.log(event.deltaY);
-  count++;
-  if (count > 10) {
-    switch (pos) {
-      case 0:
-        if (event.deltaY > 0) {
-          scrollPage(-200, pos);
-        }
+    switch (command) {
+      case 'open':
+        open(params.join(' '));
         break;
-      case -200:
-        if (event.deltaY > 0) {
-          scrollPage(-200, pos);
-        } else {
-          scrollPage(200, pos);
-        }
+      case 'weather':
+        weather(params.join(' '));
         break;
-      case -400:
-        if (event.deltaY > 0) {
-          scrollPage(-300, pos);
-        } else {
-          scrollPage(200, pos);
-        }
+      case 'current':
+        current(params.join(' '));
         break;
-      case -700:
-        if (event.deltaY < 0) {
-          scrollPage(300, pos);
-        }
+      case 'timer':
+        timer(params.join(' '));
+        break;
+      case '':
+        infoMessage.textContent = 'Унеси команду. Нпр. open forum или weather surdulica';
         break;
       default:
-        body.style.top = 0 + "%";
+        infoMessage.textContent = 'ГРЕШКА: Непозната команда.';
+        terminal.value = '';
     }
-    count = 0;
   }
-};
-
-/* *************** */
-/* Project preview */
-let projectDescriptions = {
-  "bootcampPizzaImg.png":
-    "<p>Пројекат рађен на курсу Развој веб страница.</p><p>Коришћене технологије:</p><ul><li>HTML</li><li>CSS</li><li>JavaScript</li>",
-
-  "facebookImg.png": "Плејсхолдер 1",
-  "instagramImg.png": "Плејсхолдер 3",
-  "twitterImg.png": "Плејсхолдер 2",
-  "youtubeImg.png": "Плејсхолдер 4"
-};
-
-const img = document.querySelectorAll(".projectsList img");
-const projectPreview = document.querySelector(".previewProject img");
-const projectDesc = document.querySelector(".projectDescription");
-console.log(projectPreview);
-[...img].forEach(image => {
-  image.onmouseover = () => {
-    let url = image.src.substring(image.src.lastIndexOf("/") + 1);
-    console.log(url);
-    projectPreview.src = "assets/images/" + url;
-    projectDesc.innerHTML = "<h2>Опис пројекта</h2>" + projectDescriptions[url];
-  };
-});
-/* ********************* */
-/* Clock on Welcome page */
-const headerTime = document.getElementsByClassName("headerTime");
-
-function time() {
-  document.getElementsByClassName(
-    "headerTime"
-  )[0].innerHTML = new Date().toLocaleTimeString();
-  setTimeout(() => {
-    time();
-  }, 500);
 }
-time();
+
+const open = (item) => {
+  switch (item.trim()) {
+    case 'sketchit':
+    case 'forum':
+    case 'weatherapp':
+      window.open(`https://nenad-abramovic.github.io/${item}/`);
+      infoMessage.textContent = `Отворен пројекат ${item}.`;
+      terminal.value = '';
+      break;
+    case 'linkedin':
+      window.open(`https://www.linkedin.com/in/nenadabramovic/`);
+      infoMessage.textContent = `Отворен профил на ${item}.`;
+      terminal.value = '';
+      break;
+    case 'github':
+      window.open(`https://github.com/nenad-abramovic/`);
+      infoMessage.textContent = `Отворен профил на ${item}.`;
+      terminal.value = '';
+      break;
+    case 'cv':
+      window.open('./assets/cv.pdf');
+      infoMessage.textContent = `Отворен CV.`;
+      terminal.value = '';
+      break;
+    case '':
+      infoMessage.textContent = 'Додај параметар: sketchit, forum, weatherapp или cv';
+      break;
+    default:
+      infoMessage.textContent = 'ГРЕШКА: Непознат параметар.';
+      terminal.value = '';
+  }
+}
+
+const weather = async (place) => {
+  infoMessage.textContent = 'Сачекај пар тренутака...';
+  fetch(`https://zavrsni-projekat.herokuapp.com/api/weather/${place}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        infoMessage.textContent = `Тренутна темпереатура ${(parseFloat(data.data.main.temp) - 273.16).toFixed(2)}℃.`;
+      } else {
+        infoMessage.textContent = data.data.message;
+      }
+
+    })
+    .catch(() => {
+      infoMessage.textContent = 'Нешто је пошло наопако. Пробај опет.';
+    });
+}
+
+const current = (type) => {
+  const locale = 'sr-RS';
+  switch (type.trim()) {
+    case 'time':
+      infoMessage.textContent = `Тренутно време: ${new Date().toLocaleTimeString(locale)}.`;
+      terminal.value = '';
+      break;
+    case 'date':
+      infoMessage.textContent = `Данашњи датум: ${new Date().toLocaleDateString(locale)}`;
+      terminal.value = '';
+      break;
+    case '':
+      infoMessage.textContent = 'Додај параметар: time или date.';
+      break;
+    default:
+      infoMessage.textContent = 'ГРЕШКА: Непознат параметар.';
+      terminal.value = '';
+  }
+}
+
+const timer = (timeString) => {
+  terminal.value = '';
+  const time = new Date().valueOf() + parseInt(timeString) * 1000;
+
+  if (isNaN(time.valueOf())) {
+    return infoMessage.textContent = 'ГРЕШКА: Непознат параметар.'
+  }
+
+
+  const interval = setInterval(() => {
+    const currentTime = new Date();
+    if (time - currentTime > 0) {
+      infoMessage.innerHTML = `Преостало време: ${((time - currentTime) / 1000).toFixed(2)}.`;
+    } else {
+      infoMessage.textContent = `Време је истекло.`;
+      clearInterval(interval);
+    }
+  }, 0.01);
+
+  let stopTimer = (e) => {
+    if (e.keyCode == 13) {
+      clearInterval(interval);
+      terminal.removeEventListener('keyup', stopTimer);
+    }
+  }
+  terminal.addEventListener('keyup', stopTimer);
+}

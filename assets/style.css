@@ -1,0 +1,86 @@
+* {
+  font-family: 'Amatic SC', cursive;
+}
+html {
+  font-size: 14px;
+}
+body {
+  font-size: 1rem;
+  margin: 0 1rem;
+}
+
+p {
+  font-weight: 800;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  font-weight: normal;
+  color: inherit;
+}
+
+a:hover {
+  background-color: rgba(0, 0, 0, 0.178);
+}
+
+input {
+  font-size: 1rem;
+  width: 90%;
+  border: 0;
+  outline: none;
+    font-family: monospace;
+  font-weight: 400;
+}
+
+
+.terminal {
+  border: 2px solid black;
+  max-width: 20em;
+  width: 100%;
+    font-family: monospace;
+  font-weight: 400;
+  margin-bottom: 1em;
+}
+
+.prompt {
+  font-family: monospace;
+  font-weight: 400;
+}
+
+.info-msg {
+  margin: 0;
+}
+
+.terminal-input {
+  width: calc(100% - 2em);
+}
+
+
+@media only screen and (min-width: 350px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+
+@media only screen and (min-width: 450px) {
+  html {
+    font-size:  20px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  html {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  html {
+    font-size: 40px;
+  }
+}
+
