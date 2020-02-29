@@ -4,6 +4,7 @@ const infoMessage = document.querySelector('.info-msg');
 let commandHistory = [];
 let currentCommandIndex = 0;
 const parser = math.parser();
+
 terminal.addEventListener('keyup', (e) => {
   if (e.keyCode === 13) {
     parseCommand(e.target.value.toLowerCase().trim());
