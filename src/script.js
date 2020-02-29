@@ -32,9 +32,11 @@ function parseCommand(input) {
   currentCommandIndex = commandHistory.length;
 
   try {
-    let x = parser.evaluate(input);
-    infoMessage.textContent = math.format(x, { precision: 14 });
-    terminal.value = '';
+    if (command !== '') {
+      let x = parser.evaluate(input);
+      infoMessage.textContent = math.format(x, { precision: 14 });
+      terminal.value = '';
+    }
   } catch (e) {
     const [command, ...params] = input.split(' ');
 
