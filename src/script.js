@@ -32,7 +32,7 @@ function parseCommand(input) {
   currentCommandIndex = commandHistory.length;
 
   try {
-    if (command !== '') {
+    if (input !== '') {
       let x = parser.evaluate(input);
       infoMessage.textContent = math.format(x, { precision: 14 });
       terminal.value = '';
