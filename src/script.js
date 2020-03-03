@@ -67,8 +67,12 @@ const open = (item) => {
   switch (item.trim()) {
     case 'sketchit':
     case 'forum':
-    case 'weatherapp':
       window.open(`https://nenad-abramovic.github.io/${item}/`);
+      infoMessage.textContent = `Отворен пројекат ${item}.`;
+      terminal.value = '';
+      break;
+    case 'poslasticarnica':
+      window.open(`https://github.com/nenad-abramovic/${item}`);
       infoMessage.textContent = `Отворен пројекат ${item}.`;
       terminal.value = '';
       break;
