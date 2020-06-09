@@ -2,6 +2,16 @@ var express = require("express");
 var app = express();
 const fetch = require("node-fetch");
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://nenad-abramovic.github.io/"
+  );
+  res.setHeader("Access-Control-Allow-Methods", "GET");
+
+  next();
+});
+
 app.get("/api/weather/:city_name", async (req, res) => {
   let data;
   try {
