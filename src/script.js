@@ -104,7 +104,11 @@ const open = (item) => {
 
 const weather = async (place) => {
   infoMessage.textContent = "Сачекај пар тренутака...";
-  fetch(`https://vreme-api.herokuapp.com/api/weather/${place}`)
+  fetch(`https://vreme-api.herokuapp.com/api/weather/${place}`, {
+    headers: {
+      "Access-Control-Allow-Origin": "https://nenad-abramovic.github.io/",
+    },
+  })
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
