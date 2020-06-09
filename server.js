@@ -1,11 +1,9 @@
 var express = require("express");
 var app = express();
 const fetch = require("node-fetch");
+const cors = require("cors");
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  next();
-});
+app.use(cors());
 
 app.get("/api/weather/:city_name", async (req, res) => {
   let data;
