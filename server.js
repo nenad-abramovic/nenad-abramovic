@@ -3,11 +3,7 @@ var app = express();
 const fetch = require("node-fetch");
 
 app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://nenad-abramovic.github.io/"
-  );
-  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
 
