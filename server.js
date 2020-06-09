@@ -7,8 +7,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Origin",
     "https://nenad-abramovic.github.io/"
   );
-  res.setHeader("Access-Control-Allow-Methods", "GET");
-
+  res.setHeader("Access-Control-Allow-Headers", "*");
   next();
 });
 
