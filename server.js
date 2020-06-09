@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 const fetch = require("node-fetch");
 
-app.get("/weather/:city_name", async (req, res) => {
+app.get("/api/weather/:city_name", async (req, res) => {
   let data;
   try {
     let response = await fetch(
