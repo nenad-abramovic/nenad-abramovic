@@ -1,11 +1,11 @@
-const terminal = document.querySelector('.terminal-input');
-const infoMessage = document.querySelector('.info-msg');
+const terminal = document.querySelector(".terminal-input");
+const infoMessage = document.querySelector(".info-msg");
 
 let commandHistory = [];
 let currentCommandIndex = 0;
 const parser = math.parser();
 
-terminal.addEventListener('keyup', (e) => {
+terminal.addEventListener("keyup", (e) => {
   if (e.keyCode === 13) {
     parseCommand(e.target.value.toLowerCase().trim());
   }
@@ -19,7 +19,7 @@ terminal.addEventListener('keyup', (e) => {
       terminal.value = commandHistory[++currentCommandIndex];
     }
     if (currentCommandIndex === commandHistory.length) {
-      terminal.value = '';
+      terminal.value = "";
     }
     if (currentCommandIndex === commandHistory.length - 1) {
       currentCommandIndex++;
@@ -32,124 +32,133 @@ function parseCommand(input) {
   currentCommandIndex = commandHistory.length;
 
   try {
-    if (input !== '') {
+    if (input !== "") {
       let x = parser.evaluate(input);
       infoMessage.textContent = math.format(x, { precision: 14 });
-      terminal.value = '';
+      terminal.value = "";
     }
   } catch (e) {
-    const [command, ...params] = input.split(' ');
+    const [command, ...params] = input.split(" ");
 
     switch (command) {
-      case 'open':
-        open(params.join(' '));
+      case "open":
+        open(params.join(" "));
         break;
-      case 'weather':
-        weather(params.join(' '));
+      case "weather":
+        weather(params.join(" "));
         break;
-      case 'current':
-        current(params.join(' '));
+      case "current":
+        current(params.join(" "));
         break;
-      case 'timer':
-        timer(params.join(' '));
+      case "timer":
+        timer(params.join(" "));
         break;
-      case '':
-        infoMessage.textContent = 'Унеси команду. Нпр. open forum или weather surdulica';
+      case "":
+        infoMessage.textContent =
+          "Унеси команду. Нпр. open forum или weather surdulica";
         break;
       default:
-        infoMessage.textContent = 'ГРЕШКА: Непозната команда.';
-        terminal.value = '';
+        infoMessage.textContent = "ГРЕШКА: Непозната команда.";
+        terminal.value = "";
     }
   }
 }
 
 const open = (item) => {
   switch (item.trim()) {
-    case 'sketchit':
-    case 'forum':
+    case "sketchit":
+    case "forum":
       window.open(`https://nenad-abramovic.github.io/${item}/`);
       infoMessage.textContent = `Отворен пројекат ${item}.`;
-      terminal.value = '';
+      terminal.value = "";
       break;
-    case 'poslasticarnica':
+    case "poslasticarnica":
       window.open(`https://github.com/nenad-abramovic/${item}`);
       infoMessage.textContent = `Отворен пројекат ${item}.`;
-      terminal.value = '';
+      terminal.value = "";
       break;
-    case 'linkedin':
+    case "linkedin":
       window.open(`https://www.linkedin.com/in/nenadabramovic/`);
       infoMessage.textContent = `Отворен профил на ${item}.`;
-      terminal.value = '';
+      terminal.value = "";
       break;
-    case 'github':
+    case "github":
       window.open(`https://github.com/nenad-abramovic/`);
       infoMessage.textContent = `Отворен профил на ${item}.`;
-      terminal.value = '';
+      terminal.value = "";
       break;
-    case 'cv':
-      window.open('./assets/cv.pdf');
+    case "cv":
+      window.open("./assets/cv.pdf");
       infoMessage.textContent = `Отворен CV.`;
-      terminal.value = '';
+      terminal.value = "";
       break;
-    case '':
-      infoMessage.textContent = 'Додај параметар: sketchit, forum, weatherapp или cv';
+    case "":
+      infoMessage.textContent =
+        "Додај параметар: sketchit, forum, weatherapp или cv";
       break;
     default:
-      infoMessage.textContent = 'ГРЕШКА: Непознат параметар.';
-      terminal.value = '';
+      infoMessage.textContent = "ГРЕШКА: Непознат параметар.";
+      terminal.value = "";
   }
-}
+};
 
 const weather = async (place) => {
-  infoMessage.textContent = 'Сачекај пар тренутака...';
-  fetch(`https://zavrsni-projekat.herokuapp.com/api/weather/${place}`)
-    .then(res => res.json())
-    .then(data => {
+  infoMessage.textContent = "Сачекај пар тренутака...";
+  fetch(`https://vreme-api.herokuapp.com/api/weather/${place}`)
+    .then((res) => res.json())
+    .then((data) => {
       if (data.success) {
-        infoMessage.textContent = `Тренутна темпереатура ${(parseFloat(data.data.main.temp) - 273.16).toFixed(2)}℃.`;
+        infoMessage.textContent = `Тренутна темпереатура ${(
+          parseFloat(data.data.main.temp) - 273.16
+        ).toFixed(2)}℃.`;
       } else {
         infoMessage.textContent = data.data.message;
       }
-
     })
     .catch(() => {
-      infoMessage.textContent = 'Нешто је пошло наопако. Пробај опет.';
+      infoMessage.textContent = "Нешто је пошло наопако. Пробај опет.";
     });
-}
+};
 
 const current = (type) => {
-  const locale = 'sr-RS';
+  const locale = "sr-RS";
   switch (type.trim()) {
-    case 'time':
-      infoMessage.textContent = `Тренутно време: ${new Date().toLocaleTimeString(locale)}.`;
-      terminal.value = '';
+    case "time":
+      infoMessage.textContent = `Тренутно време: ${new Date().toLocaleTimeString(
+        locale
+      )}.`;
+      terminal.value = "";
       break;
-    case 'date':
-      infoMessage.textContent = `Данашњи датум: ${new Date().toLocaleDateString(locale)}`;
-      terminal.value = '';
+    case "date":
+      infoMessage.textContent = `Данашњи датум: ${new Date().toLocaleDateString(
+        locale
+      )}`;
+      terminal.value = "";
       break;
-    case '':
-      infoMessage.textContent = 'Додај параметар: time или date.';
+    case "":
+      infoMessage.textContent = "Додај параметар: time или date.";
       break;
     default:
-      infoMessage.textContent = 'ГРЕШКА: Непознат параметар.';
-      terminal.value = '';
+      infoMessage.textContent = "ГРЕШКА: Непознат параметар.";
+      terminal.value = "";
   }
-}
+};
 
 const timer = (timeString) => {
-  terminal.value = '';
+  terminal.value = "";
   const time = new Date().valueOf() + parseInt(timeString) * 1000;
 
   if (isNaN(time.valueOf())) {
-    return infoMessage.textContent = 'ГРЕШКА: Непознат параметар.'
+    return (infoMessage.textContent = "ГРЕШКА: Непознат параметар.");
   }
-
 
   const interval = setInterval(() => {
     const currentTime = new Date();
     if (time - currentTime > 0) {
-      infoMessage.innerHTML = `Преостало време: ${((time - currentTime) / 1000).toFixed(2)}.`;
+      infoMessage.innerHTML = `Преостало време: ${(
+        (time - currentTime) /
+        1000
+      ).toFixed(2)}.`;
     } else {
       infoMessage.textContent = `Време је истекло.`;
       clearInterval(interval);
@@ -159,8 +168,8 @@ const timer = (timeString) => {
   let stopTimer = (e) => {
     if (e.keyCode == 13) {
       clearInterval(interval);
-      terminal.removeEventListener('keyup', stopTimer);
+      terminal.removeEventListener("keyup", stopTimer);
     }
-  }
-  terminal.addEventListener('keyup', stopTimer);
-}
+  };
+  terminal.addEventListener("keyup", stopTimer);
+};

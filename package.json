@@ -1,0 +1,25 @@
+{
+  "name": "nenad-abramovic.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nenad-abramovic/nenad-abramovic.github.io.git"
+  },
+  "keywords": [],
+  "author": "Абрамовић Ненад",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nenad-abramovic/nenad-abramovic.github.io/issues"
+  },
+  "homepage": "https://github.com/nenad-abramovic/nenad-abramovic.github.io#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  }
+}
