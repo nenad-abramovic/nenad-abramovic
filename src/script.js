@@ -110,7 +110,7 @@ const weather = async (place) => {
       if (data.success) {
         infoMessage.textContent = `Тренутна темпереатура ${(
           parseFloat(data.data.main.temp) - 273.16
-        ).toFixed(2)}<sup>o</sup>C.`;
+        ).toFixed(2)}℃.`;
       } else {
         infoMessage.textContent = data.data.message;
       }
