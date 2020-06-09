@@ -16,7 +16,8 @@ app.get("/api/weather/:city_name", async (req, res) => {
   let data;
   try {
     let response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${req.params.city_name}&appid=${process.env.APP_ID}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${req.params.city_name}&appid=${process.env.APP_ID}`,
+      { credentials: "include" }
     );
     data = await response.json();
     if (data.cod === "404") {
