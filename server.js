@@ -7,7 +7,7 @@ app.use((req, res, next) => {
     "Access-Control-Allow-Origin",
     "https://nenad-abramovic.github.io/"
   );
-  res.setHeader("Access-Control-Allow-Headers", "*");
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
   next();
 });
 
