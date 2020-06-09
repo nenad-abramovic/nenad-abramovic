@@ -104,17 +104,13 @@ const open = (item) => {
 
 const weather = async (place) => {
   infoMessage.textContent = "Сачекај пар тренутака...";
-  fetch(`https://vreme-api.herokuapp.com/api/weather/${place}`, {
-    headers: {
-      Accept: "https://vreme-api.herokuapp.com/",
-    },
-  })
+  fetch(`https://vreme-api.herokuapp.com/api/weather/${place}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
         infoMessage.textContent = `Тренутна темпереатура ${(
           parseFloat(data.data.main.temp) - 273.16
-        ).toFixed(2)}℃.`;
+        ).toFixed(2)}<sup>o</sup>C.`;
       } else {
         infoMessage.textContent = data.data.message;
       }
