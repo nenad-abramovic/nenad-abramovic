@@ -34,7 +34,9 @@ function parseCommand(input) {
   try {
     if (input !== "") {
       let x = parser.evaluate(input);
-      infoMessage.textContent = math.format(x, { precision: 14 });
+      infoMessage.textContent = math.format(x, {
+        precision: 14
+      });
       terminal.value = "";
     }
   } catch (e) {
@@ -66,14 +68,13 @@ function parseCommand(input) {
 
 const open = (item) => {
   switch (item.trim()) {
-    case "sketchit":
-    case "forum":
-      window.open(`https://nenad-abramovic.github.io/${item}/`);
+    case "trgovac":
+      window.open(`https://trgovac.herokuapp.com/`);
       infoMessage.textContent = `Отворен пројекат ${item}.`;
       terminal.value = "";
       break;
-    case "poslasticarnica":
-      window.open(`https://github.com/nenad-abramovic/${item}`);
+    case "forum":
+      window.open(`https://nenad-abramovic.github.io/${item}/`);
       infoMessage.textContent = `Отворен пројекат ${item}.`;
       terminal.value = "";
       break;
