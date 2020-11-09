@@ -1,17 +1,11 @@
-* {
-  font-family: "Roboto", sans-serif;
-}
-:root {
+html {  
   font-size: 35px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
 }
 
 body {
-  font-size: 1rem;
-  margin: 0 1rem;
-}
-
-p {
-  font-weight: 800;
+  margin: 1rem;
 }
 
 ul {
@@ -19,8 +13,8 @@ ul {
 }
 
 a {
-  font-weight: normal;
   color: inherit;
+  font-weight: 400;
 }
 
 a:hover {
@@ -33,29 +27,58 @@ input {
   border: 0;
   outline: none;
   font-family: monospace;
+}
+
+code {
+  background-color: beige;
+  padding: 3px;
   font-weight: 400;
+}
+
+code:hover {
+  cursor: pointer;
 }
 
 .terminal {
   border: 2px solid black;
-  max-width: 30rem;
-  width: 100%;
+  max-width: 31rem;
   font-family: monospace;
-  font-weight: 400;
   margin-bottom: 1em;
+  padding: 5px;
 }
 
 .prompt {
   font-family: monospace;
-  font-weight: 400;
 }
 
 .info-msg {
   margin: 0;
+  font-weight: 400;
 }
 
 .terminal-input {
   width: calc(100% - 2em);
+}
+
+.info {
+  position: relative;
+  font-size: 0.8em;
+  max-width: 30rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s linear;
+}
+
+.info hr {
+  width: 80%;
+}
+
+.info p {
+  margin: 0;
+}
+
+.terminal:hover > .info {
+  max-height: 17rem;
 }
 
 @media only screen and (max-width: 1100px) {

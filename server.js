@@ -16,13 +16,13 @@ app.get("/api/weather/:city_name", async (req, res) => {
     if (data.cod === "404") {
       return res.status(404).json({
         success: false,
-        data: { message: "Тражено место није пронађено" },
+        data: { message: "Place not found." },
       });
     }
   } catch (err) {
     return res.status(400).json({
       success: false,
-      data: { message: "Тражено место није пронађено" },
+      data: { message: "Place not found." },
     });
   }
 

@@ -1,5 +1,21 @@
 const terminal = document.querySelector(".terminal-input");
 const infoMessage = document.querySelector(".info-msg");
+const codeLines = document.querySelectorAll("code");
+
+codeLines.forEach(elem => {
+  elem.addEventListener('click', (e) => {
+    let text = e.target.textContent;
+    let command = e.target.parentElement.parentElement.className;
+    
+    if(text.startsWith(command)) {
+      terminal.value = text;
+    } else {
+      terminal.value = `${command} ${text}`;
+    }
+    
+    terminal.focus();
+  });
+});
 
 let commandHistory = [];
 let currentCommandIndex = 0;
@@ -57,10 +73,10 @@ function parseCommand(input) {
         break;
       case "":
         infoMessage.textContent =
-          "Унеси команду. Нпр. open forum или weather surdulica";
+          "Enter command. For example, open forum or weather surdulica";
         break;
       default:
-        infoMessage.textContent = "ГРЕШКА: Непозната команда.";
+        infoMessage.textContent = "ERROR: Unknown command.";
         terminal.value = "";
     }
   }
@@ -70,46 +86,46 @@ const open = (item) => {
   switch (item.trim()) {
     case "trgovac":
       window.open(`https://trgovac.herokuapp.com/`);
-      infoMessage.textContent = `Отворен пројекат ${item}.`;
+      infoMessage.textContent = `Opened ${item} project.`;
       terminal.value = "";
       break;
     case "forum":
       window.open(`https://nenad-abramovic.github.io/${item}/`);
-      infoMessage.textContent = `Отворен пројекат ${item}.`;
+      infoMessage.textContent = `Opened ${item} project.`;
       terminal.value = "";
       break;
     case "linkedin":
       window.open(`https://www.linkedin.com/in/nenadabramovic/`);
-      infoMessage.textContent = `Отворен профил на ${item}.`;
+      infoMessage.textContent = `Opened ${item} profile.`;
       terminal.value = "";
       break;
     case "github":
       window.open(`https://github.com/nenad-abramovic/`);
-      infoMessage.textContent = `Отворен профил на ${item}.`;
+      infoMessage.textContent = `Opened ${item} profile.`;
       terminal.value = "";
       break;
     case "cv":
       window.open("./assets/cv.pdf");
-      infoMessage.textContent = `Отворен CV.`;
+      infoMessage.textContent = `CV opened.`;
       terminal.value = "";
       break;
     case "":
       infoMessage.textContent =
-        "Додај параметар: sketchit, forum, weatherapp или cv";
+        "Add parameter: trgovac, forum, linkedin, github or cv";
       break;
     default:
-      infoMessage.textContent = "ГРЕШКА: Непознат параметар.";
+      infoMessage.textContent = "ERROR: Unknown parameter.";
       terminal.value = "";
   }
 };
 
 const weather = async (place) => {
-  infoMessage.textContent = "Сачекај пар тренутака...";
+  infoMessage.textContent = "Please wait...";
   fetch(`https://vreme-api.herokuapp.com/api/weather/${place}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        infoMessage.textContent = `Тренутна темпереатура ${(
+        infoMessage.textContent = `Current temperature ${(
           parseFloat(data.data.main.temp) - 273.16
         ).toFixed(2)}℃.`;
       } else {
@@ -117,7 +133,7 @@ const weather = async (place) => {
       }
     })
     .catch(() => {
-      infoMessage.textContent = "Нешто је пошло наопако. Пробај опет.";
+      infoMessage.textContent = " Something went wrong. Please try again.";
     });
 };
 
@@ -125,22 +141,22 @@ const current = (type) => {
   const locale = "sr-RS";
   switch (type.trim()) {
     case "time":
-      infoMessage.textContent = `Тренутно време: ${new Date().toLocaleTimeString(
+      infoMessage.textContent = `Current time: ${new Date().toLocaleTimeString(
         locale
       )}.`;
       terminal.value = "";
       break;
     case "date":
-      infoMessage.textContent = `Данашњи датум: ${new Date().toLocaleDateString(
+      infoMessage.textContent = `Todays date: ${new Date().toLocaleDateString(
         locale
       )}`;
       terminal.value = "";
       break;
     case "":
-      infoMessage.textContent = "Додај параметар: time или date.";
+      infoMessage.textContent = "Add parameter: time or date.";
       break;
     default:
-      infoMessage.textContent = "ГРЕШКА: Непознат параметар.";
+      infoMessage.textContent = "ERROR: Unknown parameter.";
       terminal.value = "";
   }
 };
@@ -150,18 +166,18 @@ const timer = (timeString) => {
   const time = new Date().valueOf() + parseInt(timeString) * 1000;
 
   if (isNaN(time.valueOf())) {
-    return (infoMessage.textContent = "ГРЕШКА: Непознат параметар.");
+    return (infoMessage.textContent = "ERROR: Unknown parameter.");
   }
 
   const interval = setInterval(() => {
     const currentTime = new Date();
     if (time - currentTime > 0) {
-      infoMessage.innerHTML = `Преостало време: ${(
+      infoMessage.innerHTML = `Time left: ${(
         (time - currentTime) /
         1000
       ).toFixed(2)}.`;
     } else {
-      infoMessage.textContent = `Време је истекло.`;
+      infoMessage.textContent = `Times up.`;
       clearInterval(interval);
     }
   }, 0.01);

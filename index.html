@@ -1,44 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Portfolio | Nenad Abramovic</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Ненад Абрамовић</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/style.css" />
-</head>
-
-<body>
-  <h1>Ћао, ја сам Ненад Абрамовић.</h1>
-  <p>Бавим се развојем веб страница.</p>
-  <p>Технологије које користим су HTML, CSS, JS и React.</p>
-  <p>Неки од пројеката које сам урадио су:</p>
-  <ul>
-    <li>
-      <a href="https://trgovac.herokuapp.com/" target="_blank">Trgovac</a>
-    </li>
-    <li>
-      <a href="https://nenad-abramovic.github.io/forum" target="_blank">Forum</a>
-    </li>
-  </ul>
-  <p>
-    Можеш ме наћи на
-    <a href="https://www.linkedin.com/in/nenadabramovic/" target="_blank">LinkedIn</a>
-    и
-    <a href="https://github.com/nenad-abramovic/" target="_blank">GitHub</a>.
-  </p>
-  <div
-    title="ТЕРМИНАЛ&#xA;&#xA;Укуцај неку од понуђених команди&#xA;&#xA;open trgovac - отвара се страница са Trgovac пројектом.&#xA;Подржани параметри за open: trgovac, forum, linkedin, github и cv.&#xA;&#xA;weather Belgrade - добија се информација о тренутној температури у Београду.&#xA;Подржани параметри за weather: познатији градови у свету.&#xA;&#xA;current time - добија се информација о тренутном времену.&#xA;Подржани параметри за current: time и date.&#xA;&#xA;timer 10 - поставља се тајмер који траје 10 секунди.&#xA;Подржани параметри за timer: број секунди трајања тајмера.&#xA;&#xA;2 + 3 - 5.&#xA;Укуцај израз који је подржан од стране math.js."
-    class="terminal">
-    <p class="info-msg">
-      Постави миша преко терминала да сазнаш како се користи.
+  <body>
+    <h1>Hello, I am Nenad Abramovic.</h1>
+    <p>I create web apps.</p>
+    <p>Technologies that I use are HTML, CSS, JS and React.</p>
+    <p>Some of the projects I've done are:</p>
+    <ul>
+      <li>
+        <a href="https://trgovac.herokuapp.com/" target="_blank">Trgovac</a>
+      </li>
+      <li>
+        <a href="https://nenad-abramovic.github.io/forum" target="_blank"
+          >Forum</a
+        >
+      </li>
+    </ul>
+    <p>
+      You can find me on
+      <a href="https://www.linkedin.com/in/nenadabramovic/" target="_blank"
+        >LinkedIn</a
+      >
+      and
+      <a href="https://github.com/nenad-abramovic/" target="_blank">GitHub</a>.
     </p>
-    <span class="prompt">&#955;&gt;</span><input class="terminal-input" type="text" />
-  </div>
-  <script src="./src/math.min.js"></script>
-  <script src="./src/script.js"></script>
-</body>
+    <div class="terminal">
+      <p class="info-msg">
+        Put the mouse pointer over the terminal for usage info.
+      </p>
+      <span class="prompt">&#955;&gt;</span
+      ><input class="terminal-input" type="text" />
+      <div class="info">
+        <hr />
+        <p><em>Currently supported commands:</em></p>
+        <br />
+        <div class="open">
+          <p><code>open trgovac</code> - opens Trgovac project.</p>
+          <p>
+            <em>Supported parameters</em>: <code>trgovac</code>,
+            <code>forum</code>, <code>linkedin</code>, <code>github</code> and
+            <code>cv</code>.
+          </p>
+        </div>
+        <br />
+        <div class="weather">
+          <p>
+            <code>weather Belgrade</code> - gets current temperature in
+            Belgrade.
+            <br />
+            <em>Supported parameters</em>: more known cities in the world.
+          </p>
+        </div>
+        <br />
+        <div class="current">
+          <p>
+            <code>current time</code> - gets current time.
+            <br />
+            <em>Supported parameters</em>: <code>time</code> and
+            <code>date</code>.
+          </p>
+        </div>
+        <br />
+        <div class="timer">
+          <p>
+            <code>timer 10</code> - sets timer for 10 seconds.
+            <br />
+            <em>Supported parameters</em>: number of seconds.
+          </p>
+        </div>
+        <br />
+        <div>
+          <p>
+            <code>2 + 3 - 5</code> - calculates expression.
+            <br />
+            Enter any expression that math.js library can calculate.
+          </p>
+        </div>
+      </div>
+    </div>
 
+    <script src="./src/math.min.js"></script>
+    <script src="./src/script.js"></script>
+  </body>
 </html>
